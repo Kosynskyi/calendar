@@ -15,8 +15,6 @@ function App() {
     isLeapYear(currentYear, objectCalendar);
   }, [currentYear]);
 
-  console.log("currentYear", currentYear);
-
   return (
     <Box p="40px" backgroundColor="#F8FDF8 " height="100vh">
       <Header />
