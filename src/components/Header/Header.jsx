@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import InputCalendar from "../InputCalendar/InputCalendar";
+import InputCalendar from "../InputCalendar/InputCalendar";
 import { FiPlus } from "react-icons/fi";
 import { FcCalendar } from "react-icons/fc";
 import CurrentDate from "../CurrentDate/CurrentDate";
@@ -37,7 +37,7 @@ const Header = () => {
       </Button>
       <Box display="flex" flexDirection="row">
         <CurrentDate />
-        {/* <InputCalendar /> */}
+        <InputCalendar />
         <Button type="button" style={{ marginLeft: "20px" }}>
           <FcCalendar />
         </Button>

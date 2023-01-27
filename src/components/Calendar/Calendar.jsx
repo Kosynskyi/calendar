@@ -22,8 +22,17 @@ const Calendar = () => {
   const arrMonthAndDays = Object.entries(objectCalendar);
   const currentMonthFromArr = arrMonthAndDays[currentMonth];
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [selectedNote, setSelectedNote] = useState("");
+
   const notes = useSelector(selectNotes);
-  console.log(notes);
+
+  const handleOpenNote = (id) => {
+    const selectedNote = notes.find((item) => item.id === id);
+    openModal();
+    setSelectedNote(selectedNote);
+
+    return selectedNote;
+  };
 
   const openModal = () => {
     setIsOpenModal((prev) => !prev);
@@ -109,24 +118,19 @@ const Calendar = () => {
         });
       }
     }
-    // console.log("arrDataMonth ", arrDataMonth);
+
     return arrDataMonth;
   };
 
-  const handleOpenNote = (id) => {
-    console.log("open note");
-
-    const selectedNote = notes.find((item) => item.id === id);
-    console.log(selectedNote);
-    openModal();
-    return selectedNote;
-  };
-
   const month = getDetailsOfMonth(currentMonthFromArr);
-  // console.log("month ", month);
 
   return (
     <Box pt="30px">
+      {isOpenModal && (
+        <Modal closeModal={closeModal}>
+          <SelectedNote note={selectedNote} closeModal={closeModal} />
+        </Modal>
+      )}
       <List>
         {month.map((item) => (
           <Item
@@ -147,15 +151,6 @@ const Calendar = () => {
               <DayInfo>{item.day}</DayInfo>
               <DayInfo>{item.dayOfWeek}</DayInfo>
             </Box>
-
-            {isOpenModal && (
-              <Modal closeModal={closeModal}>
-                <SelectedNote
-                  note={() => handleOpenNote("3_3kahYvS091ewRYtFp6K")}
-                  closeModal={closeModal}
-                />
-              </Modal>
-            )}
 
             {item.notes?.length ? (
               <Box>
