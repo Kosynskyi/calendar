@@ -1,4 +1,3 @@
-import "./App.css";
 import Calendar from "./Calendar/Calendar";
 import Header from "./Header/Header";
 import { Box } from "./Box";

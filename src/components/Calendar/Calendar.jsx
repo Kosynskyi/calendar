@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { nanoid } from "nanoid";
 import getDay from "date-fns/getDay";
@@ -23,7 +23,6 @@ const Calendar = () => {
   const currentMonthFromArr = arrMonthAndDays[currentMonth];
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [selectedNote, setSelectedNote] = useState("");
-
   const notes = useSelector(selectNotes);
 
   const handleOpenNote = (id) => {
@@ -42,11 +41,8 @@ const Calendar = () => {
     setIsOpenModal((prev) => !prev);
   };
 
-  useEffect(() => {
-    isLeapYear(currentYear, objectCalendar);
-  }, [currentYear]);
-
   const getDetailsOfMonth = (arr) => {
+    isLeapYear(currentYear, objectCalendar);
     const arrDataMonth = [];
 
     for (let i = 0; i < arr[1]; i += 1) {
