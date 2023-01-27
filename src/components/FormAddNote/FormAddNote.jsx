@@ -4,8 +4,15 @@ import { nanoid } from "nanoid";
 import { AiOutlineClose } from "react-icons/ai";
 import { Box } from "../Box";
 import { addNote } from "../redux/Notes/notesSlice";
-import Button from "../Button";
-import { Title, StyledForm, StyledLabel } from "./FormAddNote.styled";
+import {
+  Title,
+  StyledForm,
+  StyledLabel,
+  ButtonClose,
+  StyledInput,
+  TextArea,
+  ButtonSave,
+} from "./FormAddNote.styled";
 
 const FormAddNote = ({ closeModal }) => {
   const [title, setTitle] = useState("");
@@ -43,7 +50,7 @@ const FormAddNote = ({ closeModal }) => {
       beginTime,
       created: new Date().toLocaleString(),
     };
-    console.log(note);
+
     dispatch(addNote(note));
     setTitle("");
     setDescription("");
@@ -57,33 +64,35 @@ const FormAddNote = ({ closeModal }) => {
     <Box>
       <Box>
         <Title>Add new idea item</Title>
-        <Button
+        <ButtonClose
           type="button"
           onClick={closeModal}
-          style={{
-            position: "absolute",
-            top: "15px",
-            right: "15px",
-          }}
+          aria-label="close modal"
         >
-          <AiOutlineClose />
-        </Button>
+          <AiOutlineClose size={20} />
+        </ButtonClose>
       </Box>
 
       <StyledForm autoComplete="off" onSubmit={handleSubmit}>
         <StyledLabel>
           Title
-          <input
+          <StyledInput
             type="text"
+            aria-label="title"
+            placeholder="Title goes here"
             name="title"
             value={title}
             onChange={handleChange}
+            required
           />
         </StyledLabel>
         <StyledLabel>
           Descriptions
-          <input
+          <TextArea
             type="text"
+            rows="5"
+            aria-label="text"
+            placeholder="Descriptions"
             name="description"
             value={description}
             onChange={handleChange}
@@ -91,18 +100,28 @@ const FormAddNote = ({ closeModal }) => {
         </StyledLabel>
         <StyledLabel>
           Date
-          <input type="date" name="date" value={date} onChange={handleChange} />
+          <StyledInput
+            type="date"
+            aria-label="date"
+            name="date"
+            value={date}
+            onChange={handleChange}
+            required
+          />
         </StyledLabel>
         <StyledLabel>
           Begin time
-          <input
+          <StyledInput
             type="time"
+            aria-label="begin time"
             name="beginTime"
             value={beginTime}
             onChange={handleChange}
           />
         </StyledLabel>
-        <Button type="submit">Save</Button>
+        <ButtonSave type="submit" aria-label="save note">
+          Save
+        </ButtonSave>
       </StyledForm>
     </Box>
   );

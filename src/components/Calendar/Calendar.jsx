@@ -7,7 +7,7 @@ import { Box } from "../Box";
 import { objectCalendar } from "../../data/objectCalendar";
 import { daysOfWeek } from "../../data/daysOfWeek";
 import { monthList } from "../../data/month";
-import { selectCurrentMonth, selectCurrentYear } from "../redux/selector";
+import { selectCurrentMonth, selectCurrentYear } from "../redux/Date/selector";
 import { selectNotes } from "../redux/Notes/notesSelector";
 import { isLeapYear } from "../../servises/isLeapYear";
 import { dateMatch } from "../../servises/dateMatch";
@@ -137,10 +137,10 @@ const Calendar = () => {
             key={item.id}
             style={{
               backgroundColor: item.added
-                ? "grey"
+                ? "#D2E5D7"
                 : item.currentDate
-                ? "yellow"
-                : "green",
+                ? "#65ED5A"
+                : "#69BEEE",
             }}
           >
             <Box

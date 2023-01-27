@@ -1,22 +1,24 @@
 import { useSelector, useDispatch } from "react-redux";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
-import { selectCurrentYear, selectCurrentMonth } from "../redux/selector";
-import { chosenMonth } from "../redux/slice";
-import { previousYear, nextYear } from "../redux/slice";
+import { selectCurrentYear, selectCurrentMonth } from "../redux/Date/selector";
+import { chosenMonth } from "../redux/Date/slice";
+import { previousYear, nextYear } from "../redux/Date/slice";
 import { objectCalendar } from "../../data/objectCalendar";
 import { Box } from "../Box";
-import Button from "../Button";
 import { monthList } from "../../data/month";
-import { List, Item, Month, Year } from "./InputCalendar.styled";
+import { List, Item, Month, Year, Button } from "./InputCalendar.styled";
 
-const InputCalendar = () => {
+const InputCalendar = ({ closeModal }) => {
   const currentYear = useSelector(selectCurrentYear);
   const currentMonth = useSelector(selectCurrentMonth);
+  const comparisonMonth = new Date().getMonth() === currentMonth;
+  const comparisonYear = new Date().getFullYear() === currentYear;
 
   const dispatch = useDispatch();
   const checkMonth = ({ currentTarget }) => {
     dispatch(chosenMonth(Number(currentTarget.id)));
+    closeModal();
   };
 
   if (currentYear % 4 === 0) {
@@ -25,13 +27,8 @@ const InputCalendar = () => {
     objectCalendar.February = 28;
   }
 
-  const comparisonMonth = new Date().getMonth() === currentMonth;
-  console.log(comparisonMonth);
-  const comparisonYear = new Date().getFullYear() === currentYear;
-  console.log(comparisonYear);
-
   return (
-    <Box ml="20px" display="flex" flexDirection="column">
+    <Box display="flex" flexDirection="column">
       <Box
         display="flex"
         flexDirection="row"
@@ -40,12 +37,18 @@ const InputCalendar = () => {
         mb="20px"
       >
         <Button type="button">
-          <MdKeyboardArrowLeft onClick={() => dispatch(previousYear())} />
+          <MdKeyboardArrowLeft
+            size={30}
+            onClick={() => dispatch(previousYear())}
+          />
         </Button>
         <Year>{currentYear}</Year>
 
         <Button type="button">
-          <MdKeyboardArrowRight onClick={() => dispatch(nextYear())} />
+          <MdKeyboardArrowRight
+            size={30}
+            onClick={() => dispatch(nextYear())}
+          />
         </Button>
       </Box>
 
@@ -58,7 +61,7 @@ const InputCalendar = () => {
               backgroundColor:
                 comparisonMonth && comparisonYear && index === currentMonth
                   ? "yellow"
-                  : "blue",
+                  : "#69BEEE",
             }}
             onClick={checkMonth}
           >

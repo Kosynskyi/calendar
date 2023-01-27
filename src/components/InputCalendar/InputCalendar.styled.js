@@ -15,13 +15,13 @@ export const Item = styled.li`
   display: flex;
   justify-content: center;
   align-items: center;
-  outline: 1px solid red;
+  border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: 500ms;
 
   &:hover {
-    transform: scale(1.03);
+    transform: scale(1.05);
   }
 `;
 
@@ -32,7 +32,13 @@ export const Month = styled.p`
 
 export const Year = styled.p`
   margin: 0;
+  padding: 0 20px;
+  font-size: 16px;
+`;
+
+export const Button = styled.button`
   padding: 0;
-  padding-left: 20px;
-  padding-right: 20px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 `;

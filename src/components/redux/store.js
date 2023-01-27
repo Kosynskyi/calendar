@@ -10,7 +10,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { calendarReducer } from "./slice";
+import { calendarReducer } from "./Date/slice";
 import { notesReducer } from "./Notes/notesSlice";
 
 const persistConfigDate = {

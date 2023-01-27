@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { monthList } from "../../data/month";
+import { monthList } from "../../../data/month";
 
 const initialState = {
   currentMonth: new Date().getMonth(),

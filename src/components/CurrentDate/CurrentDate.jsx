@@ -1,11 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
-import { previousMonth, nextMonth } from "../redux/slice";
-import { selectCurrentMonth, selectCurrentYear } from "../redux/selector";
+import { previousMonth, nextMonth } from "../redux/Date/slice";
+import { selectCurrentMonth, selectCurrentYear } from "../redux/Date/selector";
 import { monthList } from "../../data/month";
-import Button from "../Button";
 import { Box } from "../Box";
-import { Text } from "./CurrentDate.styled";
+import { Text, StyledButton } from "./CurrentDate.styled";
 
 const CurrentDate = () => {
   const dispatch = useDispatch();
@@ -13,17 +12,17 @@ const CurrentDate = () => {
   const currentYear = useSelector(selectCurrentYear);
 
   return (
-    <Box display="flex" flexDirection="row">
-      <Button type="button" onClick={() => dispatch(previousMonth())}>
-        <MdKeyboardArrowLeft />
-      </Button>
+    <Box display="flex" flexDirection="row" alignItems="center">
+      <StyledButton type="button" onClick={() => dispatch(previousMonth())}>
+        <MdKeyboardArrowLeft size={30} />
+      </StyledButton>
       <Text>
         {monthList[currentMonth]} {currentYear}
       </Text>
 
-      <Button type="button" onClick={() => dispatch(nextMonth())}>
-        <MdKeyboardArrowRight />
-      </Button>
+      <StyledButton type="button" onClick={() => dispatch(nextMonth())}>
+        <MdKeyboardArrowRight size={30} />
+      </StyledButton>
     </Box>
   );
 };

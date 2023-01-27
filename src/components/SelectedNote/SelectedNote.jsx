@@ -1,9 +1,19 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AiOutlineClose } from "react-icons/ai";
+import { IoMdSave } from "react-icons/io";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import { updateNote, deleteNote } from "../redux/Notes/notesSlice";
 import { Box } from "../Box";
-import Button from "../Button";
+import {
+  Title,
+  StyledForm,
+  StyledLabel,
+  StyledInput,
+  TextArea,
+  ButtonClose,
+} from "../FormAddNote/FormAddNote.styled";
+import { NoteTime, Span, Button } from "./SelectedNote.styled";
 
 const SelectedNote = ({ closeModal, note }) => {
   const [id] = useState(note.id);
@@ -56,51 +66,78 @@ const SelectedNote = ({ closeModal, note }) => {
 
   return (
     <Box>
-      <h2>Edit idea item</h2>
-      <p>Created at {created}</p>
-      {note.updated && <p>Updated at {note.updated}</p>}
-      <Button type="button" onClick={closeModal}>
-        <AiOutlineClose />
-      </Button>
+      <Title>Edit idea item</Title>
+      <NoteTime>
+        Created at: <Span>{created}</Span>
+      </NoteTime>
+      {note.updated && (
+        <NoteTime>
+          Updated at: <Span>{note.updated}</Span>
+        </NoteTime>
+      )}
+      <ButtonClose type="button" onClick={closeModal}>
+        <AiOutlineClose size={20} />
+      </ButtonClose>
 
-      <form onSubmit={handleSubmit}>
-        <label>
+      <StyledForm onSubmit={handleSubmit}>
+        <StyledLabel>
           Title
-          <input
+          <StyledInput
             type="text"
+            aria-label="title"
+            placeholder="Title goes here"
             name="title"
+            required
             value={title}
             onChange={handleChange}
           />
-        </label>
-        <label>
+        </StyledLabel>
+        <StyledLabel>
           Description
-          <input
+          <TextArea
             type="text"
+            rows="5"
+            aria-label="text"
+            placeholder="Descriptions"
             name="description"
             value={description}
             onChange={handleChange}
           />
-        </label>
-        <label>
+        </StyledLabel>
+        <StyledLabel>
           Date
-          <input type="date" name="date" value={date} onChange={handleChange} />
-        </label>
-        <label>
+          <StyledInput
+            type="date"
+            name="date"
+            aria-label="date"
+            required
+            value={date}
+            onChange={handleChange}
+          />
+        </StyledLabel>
+        <StyledLabel>
           Begin time
-          <input
+          <StyledInput
             type="time"
             name="beginTime"
+            aria-label="begin time"
             value={beginTime}
             onChange={handleChange}
           />
-        </label>
-
-        <Button type="button" onClick={() => deleteSelectedNote(id)}>
-          Delete
-        </Button>
-        <Button type="submit">Save</Button>
-      </form>
+        </StyledLabel>
+        <Box display="flex" flexDirection="row" justifyContent="space-between">
+          <Button
+            type="button"
+            aria-label="delete note"
+            onClick={() => deleteSelectedNote(id)}
+          >
+            <RiDeleteBin6Line size={25} color="red" />
+          </Button>
+          <Button type="submit" aria-label="update note">
+            <IoMdSave size={25} color="#1FF124" />
+          </Button>
+        </Box>
+      </StyledForm>
     </Box>
   );
 };

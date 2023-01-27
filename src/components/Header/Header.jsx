@@ -3,10 +3,10 @@ import InputCalendar from "../InputCalendar/InputCalendar";
 import { FiPlus } from "react-icons/fi";
 import { FcCalendar } from "react-icons/fc";
 import CurrentDate from "../CurrentDate/CurrentDate";
-import Button from "../Button/Button";
 import { Box } from "../Box";
 import Modal from "../Modal";
 import FormAddNote from "../FormAddNote/FormAddNote";
+import { StyledButton, ButtonCalendar } from "./Header.styled";
 
 const Header = () => {
   const [addFormIsOpenModal, setAddFormIsOpenModal] = useState(false);
@@ -34,6 +34,7 @@ const Header = () => {
       display="flex"
       flexDirection="row"
       justifyContent="space-between"
+      alignItems="center"
     >
       {addFormIsOpenModal && (
         <Modal closeModal={closeModalAddForm}>
@@ -47,18 +48,18 @@ const Header = () => {
         </Modal>
       )}
 
-      <Button type="button" onClick={openModalAddForm}>
-        <FiPlus />
-      </Button>
+      <StyledButton type="button" onClick={openModalAddForm}>
+        <FiPlus size={30} />
+      </StyledButton>
       <Box display="flex" flexDirection="row">
         <CurrentDate />
-        <Button
+        <ButtonCalendar
           type="button"
           style={{ marginLeft: "20px" }}
           onClick={openModalChoseDate}
         >
-          <FcCalendar />
-        </Button>
+          <FcCalendar size={60} />
+        </ButtonCalendar>
       </Box>
     </Box>
   );
