@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { nanoid } from "nanoid";
+import { toast } from "react-toastify";
 import { AiOutlineClose } from "react-icons/ai";
 import { Box } from "../Box";
 import { addNote } from "../redux/Notes/notesSlice";
@@ -58,6 +59,12 @@ const FormAddNote = ({ closeModal }) => {
     setBeginTime("");
 
     closeModal();
+
+    toast.success("Note was successfully added 😉", {
+      position: "bottom-right",
+      autoClose: 3000,
+      theme: "colored",
+    });
   };
 
   return (

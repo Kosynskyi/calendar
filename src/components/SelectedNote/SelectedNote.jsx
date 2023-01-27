@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import { AiOutlineClose } from "react-icons/ai";
 import { IoMdSave } from "react-icons/io";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -57,11 +58,21 @@ const SelectedNote = ({ closeModal, note }) => {
       })
     );
     closeModal();
+    toast.success("Note was successfully updated 😉", {
+      position: "bottom-right",
+      autoClose: 3000,
+      theme: "colored",
+    });
   };
 
   const deleteSelectedNote = (id) => {
     dispatch(deleteNote(id));
     closeModal();
+    toast.success("Note was successfully deleted 😉", {
+      position: "bottom-right",
+      autoClose: 3000,
+      theme: "colored",
+    });
   };
 
   return (
