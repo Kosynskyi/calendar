@@ -4,7 +4,6 @@ import { monthList } from "../../data/month";
 const initialState = {
   currentMonth: new Date().getMonth(),
   currentYear: new Date().getFullYear(),
-  // currentDay: new Date().getDate(),
 };
 
 const calendarSlice = createSlice({
@@ -25,9 +24,19 @@ const calendarSlice = createSlice({
         state.currentYear += 1;
       }
     },
+    chosenMonth: (state, { payload }) => {
+      state.currentMonth = payload;
+    },
+    previousYear: (state) => {
+      state.currentYear -= 1;
+    },
+    nextYear: (state) => {
+      state.currentYear += 1;
+    },
   },
 });
 
-export const { previousMonth, nextMonth } = calendarSlice.actions;
+export const { previousMonth, nextMonth, chosenMonth, previousYear, nextYear } =
+  calendarSlice.actions;
 
 export const calendarReducer = calendarSlice.reducer;

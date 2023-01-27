@@ -9,14 +9,23 @@ import Modal from "../Modal";
 import FormAddNote from "../FormAddNote/FormAddNote";
 
 const Header = () => {
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [addFormIsOpenModal, setAddFormIsOpenModal] = useState(false);
+  const [choseDateIsOpenModal, setChoseDateIsOpenModal] = useState(false);
 
-  const openModal = () => {
-    setIsOpenModal((prev) => !prev);
+  const openModalAddForm = () => {
+    setAddFormIsOpenModal((prev) => !prev);
   };
 
-  const closeModal = () => {
-    setIsOpenModal((prev) => !prev);
+  const closeModalAddForm = () => {
+    setAddFormIsOpenModal((prev) => !prev);
+  };
+
+  const openModalChoseDate = () => {
+    setChoseDateIsOpenModal((prev) => !prev);
+  };
+
+  const closeModalChoseDate = () => {
+    setChoseDateIsOpenModal((prev) => !prev);
   };
 
   return (
@@ -26,19 +35,28 @@ const Header = () => {
       flexDirection="row"
       justifyContent="space-between"
     >
-      {isOpenModal && (
-        <Modal closeModal={closeModal}>
-          <FormAddNote closeModal={closeModal} />
+      {addFormIsOpenModal && (
+        <Modal closeModal={closeModalAddForm}>
+          <FormAddNote closeModal={closeModalAddForm} />
         </Modal>
       )}
 
-      <Button type="button" onClick={openModal}>
+      {choseDateIsOpenModal && (
+        <Modal closeModal={closeModalChoseDate}>
+          <InputCalendar closeModal={closeModalChoseDate} />
+        </Modal>
+      )}
+
+      <Button type="button" onClick={openModalAddForm}>
         <FiPlus />
       </Button>
       <Box display="flex" flexDirection="row">
         <CurrentDate />
-        <InputCalendar />
-        <Button type="button" style={{ marginLeft: "20px" }}>
+        <Button
+          type="button"
+          style={{ marginLeft: "20px" }}
+          onClick={openModalChoseDate}
+        >
           <FcCalendar />
         </Button>
       </Box>
