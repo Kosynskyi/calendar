@@ -19,7 +19,9 @@ import { List, Item, DayInfo, NoteTitle } from "./Calendar.styled";
 const Calendar = () => {
   const currentYear = useSelector(selectCurrentYear);
   const currentMonth = useSelector(selectCurrentMonth);
-  const arrMonthAndDays = Object.entries(objectCalendar);
+  const arrMonthAndDays = Object.entries(
+    isLeapYear(currentYear, objectCalendar)
+  );
   const currentMonthFromArr = arrMonthAndDays[currentMonth];
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [selectedNote, setSelectedNote] = useState("");
@@ -42,9 +44,6 @@ const Calendar = () => {
   };
 
   const getDetailsOfMonth = (arr) => {
-    isLeapYear(currentYear, objectCalendar);
-    console.log(isLeapYear(currentYear, objectCalendar));
-    console.log(objectCalendar);
     const arrDataMonth = [];
 
     for (let i = 0; i < arr[1]; i += 1) {
