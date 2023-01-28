@@ -43,6 +43,8 @@ const Calendar = () => {
 
   const getDetailsOfMonth = (arr) => {
     isLeapYear(currentYear, objectCalendar);
+    console.log(isLeapYear(currentYear, objectCalendar));
+    console.log(objectCalendar);
     const arrDataMonth = [];
 
     for (let i = 0; i < arr[1]; i += 1) {
