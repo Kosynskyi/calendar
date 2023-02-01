@@ -32,7 +32,6 @@ export const NoteTitle = styled.div`
   margin-top: 5px;
   padding: 2px 2px;
   text-align: center;
-  /* border: 1px solid #8e1ff6; */
   background-color: #fff;
   border-radius: 5px;
   font-size: 12px;

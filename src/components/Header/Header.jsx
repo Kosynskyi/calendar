@@ -1,31 +1,31 @@
-import React, { useState } from "react";
-import InputCalendar from "../InputCalendar/InputCalendar";
-import { FiPlus } from "react-icons/fi";
-import { FcCalendar } from "react-icons/fc";
-import CurrentDate from "../CurrentDate/CurrentDate";
-import { Box } from "../Box";
-import Modal from "../Modal";
-import FormAddNote from "../FormAddNote/FormAddNote";
-import { StyledButton, ButtonCalendar } from "./Header.styled";
+import React, { useState } from 'react';
+import InputCalendar from '../InputCalendar';
+import { FiPlus } from 'react-icons/fi';
+import { FcCalendar } from 'react-icons/fc';
+import CurrentDate from '../CurrentDate';
+import { Box } from '../Box';
+import Modal from '../Modal';
+import FormAddNote from '../FormAddNote';
+import { StyledButton, ButtonCalendar } from './Header.styled';
 
 const Header = () => {
   const [addFormIsOpenModal, setAddFormIsOpenModal] = useState(false);
   const [choseDateIsOpenModal, setChoseDateIsOpenModal] = useState(false);
 
   const openModalAddForm = () => {
-    setAddFormIsOpenModal((prev) => !prev);
+    setAddFormIsOpenModal(prev => !prev);
   };
 
   const closeModalAddForm = () => {
-    setAddFormIsOpenModal((prev) => !prev);
+    setAddFormIsOpenModal(prev => !prev);
   };
 
   const openModalChoseDate = () => {
-    setChoseDateIsOpenModal((prev) => !prev);
+    setChoseDateIsOpenModal(prev => !prev);
   };
 
   const closeModalChoseDate = () => {
-    setChoseDateIsOpenModal((prev) => !prev);
+    setChoseDateIsOpenModal(prev => !prev);
   };
 
   return (
@@ -55,7 +55,7 @@ const Header = () => {
         <CurrentDate />
         <ButtonCalendar
           type="button"
-          style={{ marginLeft: "20px" }}
+          style={{ marginLeft: '20px' }}
           onClick={openModalChoseDate}
         >
           <FcCalendar size={60} />

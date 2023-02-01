@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
-import { AiOutlineClose } from "react-icons/ai";
-import { IoMdSave } from "react-icons/io";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { updateNote, deleteNote } from "../redux/Notes/notesSlice";
-import { Box } from "../Box";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import { AiOutlineClose } from 'react-icons/ai';
+import { IoMdSave } from 'react-icons/io';
+import { RiDeleteBin6Line } from 'react-icons/ri';
+// import { updateNote, deleteNote } from '../redux/Notes/notesSlice';
+import { updateNote, deleteNote } from '../redux/Notes/notesOperations';
+import { Box } from '../Box';
 import {
   Title,
   StyledForm,
@@ -13,8 +14,8 @@ import {
   StyledInput,
   TextArea,
   ButtonClose,
-} from "../FormAddNote/FormAddNote.styled";
-import { NoteTime, Span, Button } from "./SelectedNote.styled";
+} from '../FormAddNote/FormAddNote.styled';
+import { NoteTime, Span, Button } from './SelectedNote.styled';
 
 const SelectedNote = ({ closeModal, note }) => {
   const [id] = useState(note.id);
@@ -27,16 +28,16 @@ const SelectedNote = ({ closeModal, note }) => {
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
-      case "title":
+      case 'title':
         setTitle(value);
         break;
-      case "description":
+      case 'description':
         setDescription(value);
         break;
-      case "date":
+      case 'date':
         setDate(value);
         break;
-      case "beginTime":
+      case 'beginTime':
         setBeginTime(value);
         break;
 
@@ -45,7 +46,7 @@ const SelectedNote = ({ closeModal, note }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     dispatch(
       updateNote({
@@ -58,20 +59,20 @@ const SelectedNote = ({ closeModal, note }) => {
       })
     );
     closeModal();
-    toast.success("Note was successfully updated 😉", {
-      position: "bottom-right",
+    toast.success('Note was successfully updated 😉', {
+      position: 'bottom-right',
       autoClose: 3000,
-      theme: "colored",
+      theme: 'colored',
     });
   };
 
-  const deleteSelectedNote = (id) => {
+  const deleteSelectedNote = id => {
     dispatch(deleteNote(id));
     closeModal();
-    toast.success("Note was successfully deleted 😉", {
-      position: "bottom-right",
+    toast.success('Note was successfully deleted 😉', {
+      position: 'bottom-right',
       autoClose: 3000,
-      theme: "colored",
+      theme: 'colored',
     });
   };
 

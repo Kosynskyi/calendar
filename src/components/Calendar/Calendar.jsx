@@ -1,20 +1,20 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { nanoid } from "nanoid";
-import getDay from "date-fns/getDay";
-
-import { Box } from "../Box";
-import { objectCalendar } from "../../data/objectCalendar";
-import { daysOfWeek } from "../../data/daysOfWeek";
-import { monthList } from "../../data/month";
-import { selectCurrentMonth, selectCurrentYear } from "../redux/Date/selector";
-import { selectNotes } from "../redux/Notes/notesSelector";
-import { isLeapYear } from "../../servises/isLeapYear";
-import { dateMatch } from "../../servises/dateMatch";
-import { formatedDate } from "../../servises/formatedDate";
-import Modal from "../Modal";
-import SelectedNote from "../SelectedNote/SelectedNote";
-import { List, Item, DayInfo, NoteTitle } from "./Calendar.styled";
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { nanoid } from 'nanoid';
+import getDay from 'date-fns/getDay';
+import { Box } from '../Box';
+import { getNotes } from '../redux/Notes/notesOperations';
+import { objectCalendar } from '../../data/objectCalendar';
+import { daysOfWeek } from '../../data/daysOfWeek';
+import { monthList } from '../../data/month';
+import { selectCurrentMonth, selectCurrentYear } from '../redux/Date/selector';
+import { selectNotes } from '../redux/Notes/notesSelector';
+import { isLeapYear } from '../../services/isLeapYear';
+import { dateMatch } from '../../services/dateMatch';
+import { formatedDate } from '../../services/formatedDate';
+import Modal from '../Modal';
+import SelectedNote from '../SelectedNote/SelectedNote';
+import { List, Item, DayInfo, NoteTitle } from './Calendar.styled';
 
 const Calendar = () => {
   const currentYear = useSelector(selectCurrentYear);
@@ -24,11 +24,16 @@ const Calendar = () => {
   );
   const currentMonthFromArr = arrMonthAndDays[currentMonth];
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [selectedNote, setSelectedNote] = useState("");
+  const [selectedNote, setSelectedNote] = useState('');
   const notes = useSelector(selectNotes);
+  const dispatch = useDispatch();
 
-  const handleOpenNote = (id) => {
-    const selectedNote = notes.find((item) => item.id === id);
+  useEffect(() => {
+    dispatch(getNotes());
+  }, [dispatch]);
+
+  const handleOpenNote = id => {
+    const selectedNote = notes.find(item => item.id === id);
     openModal();
     setSelectedNote(selectedNote);
 
@@ -36,21 +41,22 @@ const Calendar = () => {
   };
 
   const openModal = () => {
-    setIsOpenModal((prev) => !prev);
+    setIsOpenModal(prev => !prev);
   };
 
   const closeModal = () => {
-    setIsOpenModal((prev) => !prev);
+    setIsOpenModal(prev => !prev);
   };
 
-  const getDetailsOfMonth = (arr) => {
+  const getDetailsOfMonth = arr => {
     const arrDataMonth = [];
 
     for (let i = 0; i < arr[1]; i += 1) {
       const weekDay = getDay(new Date(currentYear, currentMonth, i));
       const match = dateMatch(currentYear, currentMonth + 1, i + 1);
+
       const noteList = notes.filter(
-        (item) => item.date === formatedDate(currentYear, currentMonth, i + 1)
+        item => item.date === formatedDate(currentYear, currentMonth, i + 1)
       );
 
       arrDataMonth.push({
@@ -67,7 +73,7 @@ const Calendar = () => {
     const lastDayOfMonth = arrDataMonth[arrDataMonth.length - 1].dayOfWeek;
     const firstDayOfMonth = arrDataMonth[0].dayOfWeek;
 
-    if (firstDayOfMonth !== "Mo") {
+    if (firstDayOfMonth !== 'Mo') {
       const lastPrevMonthDay =
         currentMonth === 0
           ? arrMonthAndDays[arrMonthAndDays.length - 1][1]
@@ -75,12 +81,12 @@ const Calendar = () => {
 
       for (
         let i = lastPrevMonthDay;
-        arrDataMonth[0].dayOfWeek !== "Mo";
+        arrDataMonth[0].dayOfWeek !== 'Mo';
         i -= 1
       ) {
         const weekDay = getDay(new Date(currentYear, currentMonth - 1, i));
         const noteList = notes.filter(
-          (item) => item.date === formatedDate(currentYear, currentMonth - 1, i)
+          item => item.date === formatedDate(currentYear, currentMonth - 1, i)
         );
 
         arrDataMonth.unshift({
@@ -94,15 +100,15 @@ const Calendar = () => {
       }
     }
 
-    if (lastDayOfMonth !== "Su") {
+    if (lastDayOfMonth !== 'Su') {
       for (let j = 1; arrDataMonth.length % 7 !== 0; j += 1) {
         const weekDay = getDay(new Date(currentYear, currentMonth + 1, j));
 
         const dayOfWeek = daysOfWeek[weekDay - 1]
           ? daysOfWeek[weekDay - 1]
-          : "Su";
+          : 'Su';
         const noteList = notes.filter(
-          (item) => item.date === formatedDate(currentYear, currentMonth + 1, j)
+          item => item.date === formatedDate(currentYear, currentMonth + 1, j)
         );
 
         arrDataMonth.push({
@@ -129,15 +135,15 @@ const Calendar = () => {
         </Modal>
       )}
       <List>
-        {month.map((item) => (
+        {month.map(item => (
           <Item
             key={item.id}
             style={{
               backgroundColor: item.added
-                ? "#D2E5D7"
+                ? '#D2E5D7'
                 : item.currentDate
-                ? "#65ED5A"
-                : "#69BEEE",
+                ? '#65ED5A'
+                : '#69BEEE',
             }}
           >
             <Box
@@ -151,7 +157,7 @@ const Calendar = () => {
 
             {item.notes?.length ? (
               <Box>
-                {item.notes.map((item) => (
+                {item.notes.map(item => (
                   <NoteTitle
                     id={item.id}
                     key={item.id}
